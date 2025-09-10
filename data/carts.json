@@ -21,7 +21,11 @@
     "products": [
       {
         "id": "2a8aea5a-4684-4855-9939-9a78a7e12181",
-        "quantity": 2
+        "quantity": 3
+      },
+      {
+        "id": "ea24063e-dbf3-4b3c-b18f-e23926855f87",
+        "quantity": 1
       }
     ]
   }

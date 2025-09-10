@@ -44,13 +44,10 @@ class CartManager {
       if(productInCart){
         productInCart.quantity += quantity;
 
-        await fs.writeFile(this.pathFile, JSON.stringify(carts, null, 2), "utf-8");
-
-        return cart;
+      } else {
+        const product = { id: productId, quantity };
+        cart.products.push(product);
       }
-
-      const product = { id: productId, quantity };
-      cart.products.push(product);
 
       await fs.writeFile(this.pathFile, JSON.stringify(carts, null, 2), "utf-8");
 
