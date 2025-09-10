@@ -99,32 +99,34 @@ class ProductManager {
   }
 }
 
-async function main(){
-  try {
-    const productManager = new ProductManager("./data/products.json");
+export default ProductManager;
 
-    // await productManager.addProduct({ title: "Zapatillas", price: 34, stock: 60 });
+// async function main(){
+//   try {
+//     const productManager = new ProductManager("./data/products.json");
 
-    // const products = await productManager.getProducts();
-    // console.log(products);
+//     // await productManager.addProduct({ title: "Zapatillas", price: 34, stock: 60 });
 
-    // const product = await productManager.getProductById("7553b483-f6aa-47a7-bcc1-0917fb5038dd");
-    // console.log(product);
+//     // const products = await productManager.getProducts();
+//     // console.log(products);
 
-    // const updates = {
-    //   price: 30,
-    //   stock: 130
-    // }
+//     // const product = await productManager.getProductById("7553b483-f6aa-47a7-bcc1-0917fb5038dd");
+//     // console.log(product);
 
-    // const product = await productManager.setProductById("7553b483-f6aa-47a7-bcc1-0917fb5038dd", updates);
-    // console.log(product);
+//     // const updates = {
+//     //   price: 30,
+//     //   stock: 130
+//     // }
 
-    const products = await productManager.deleteProductById("318e3c45-75d7-483f-8aaf-f65febf318fe");
-    console.log(products);
+//     // const product = await productManager.setProductById("7553b483-f6aa-47a7-bcc1-0917fb5038dd", updates);
+//     // console.log(product);
 
-  } catch (error) {
-    console.log(error);
-  }
-}
+//     const products = await productManager.deleteProductById("318e3c45-75d7-483f-8aaf-f65febf318fe");
+//     console.log(products);
 
-main();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// main();
