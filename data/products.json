@@ -1,0 +1,14 @@
+[
+  {
+    "id": "7553b483-f6aa-47a7-bcc1-0917fb5038dd",
+    "title": "Remera",
+    "price": 30,
+    "stock": 130
+  },
+  {
+    "id": "dff21c71-6351-4225-96c4-790750d205ce",
+    "title": "Pantalon",
+    "price": 21,
+    "stock": 120
+  }
+]
