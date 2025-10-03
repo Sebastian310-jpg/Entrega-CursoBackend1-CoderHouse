@@ -2,3 +2,126 @@ body {
   background-color: black;
   color: white;
 }
+
+.products-container {
+  width: 80%;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: #252525;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform .3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.01);
+}
+
+.product-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-info {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.product-desc {
+  font-size: 14px;
+  color: #777;
+}
+
+.product-category {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.product-stock {
+  font-size: 14px;
+  color: #888;
+}
+
+/* ------------- FORM ------------- */
+.product-form {
+  width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* separa inputs sin usar divs */
+  color: #252525;
+}
+
+.form-input,
+.form-textarea,
+.form-file {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-file:focus {
+  outline: none;
+  border-color: #27ae60;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.btn-submit {
+  padding: 12px;
+  background-color: #27ae60;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color .2s;
+}
+
+.btn-submit:hover {
+  background-color: #219150;
+}
+

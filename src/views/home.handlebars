@@ -1,9 +1,19 @@
-<div>
+<div class="products-container">
   <h1>Lista de Productos</h1>
 
-  <div>
+  <div class="products-grid">
     {{#each products}}
-      <p>{{this.title}} - ${{price}}</p>
+      <div class="product-card">
+        <img src={{this.thumbnail}} alt={{this.title}} class="product-img">
+
+        <div class="product-info">
+          <h2 class="product-title">{{this.title}}</h2>
+          <p class="product-desc">{{this.description}}</p>
+          <p class="product-category"><strong>Categoría:</strong> {{this.category}}</p>
+          <p class="product-price">${{this.price}}</p>
+          <p class="product-stock">Stock: {{this.stock}}</p>
+        </div>
+      </div>
     {{/each}}
   </div>
 </div>
