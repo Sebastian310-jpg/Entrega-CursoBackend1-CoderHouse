@@ -16,7 +16,7 @@
 
   <div class="products-grid">
     {{#each products}}
-      <div class="product-card">
+      <div class="product-card" data-id={{this.id}}>
         <img src={{this.thumbnail}} alt={{this.title}} class="product-img">
 
         <div class="product-info">
@@ -25,6 +25,8 @@
           <p class="product-category"><strong>Categoría:</strong> {{this.category}}</p>
           <p class="product-price">${{this.price}}</p>
           <p class="product-stock">Stock: {{this.stock}}</p>
+
+          <button class="btn-delete">Eliminar</button>
         </div>
       </div>
     {{/each}}
@@ -41,14 +43,17 @@
 
     const formData = new FormData(form);
 
-    const res = await fetch("http://localhost:8080/realtimeproducts", { method: "post", body: formData })
+    const res = await fetch("http://localhost:8080/realtimeproducts", { method: "POST", body: formData });
   })
 
-  socket.on("product-added", (product) => {
+  socket.on("productAdded", (product) => {
     const grid = document.querySelector(".products-grid");
 
     const card = document.createElement("div");
+
     card.classList.add("product-card");
+    card.setAttribute("data-id", product.id);
+
     card.innerHTML = `
       <img src="${product.thumbnail}" alt="${product.title}" class="product-img">
 
@@ -58,15 +63,26 @@
         <p class="product-category"><strong>Categoría:</strong> ${product.category}</p>
         <p class="product-price">$${product.price}</p>
         <p class="product-stock">Stock: ${product.stock}</p>
+        <button class="btn-delete">Eliminar</button>
       </div>
     `;
 
     grid.appendChild(card);
   });
 
-  const main = () => {
-    socket.emit('new client', { message: 'Saludos desde el cliente'});
-  }
+  // Eliminar productos
+  document.addEventListener("click", (event) => {
+    if(event.target.classList.contains("btn-delete")) {
+      const card = event.target.closest(".product-card");
+      const id = card.getAttribute("data-id");
 
-  main();
+      socket.emit("deleteProduct", id);
+    }
+  });
+
+  socket.on("productDeleted", (id) => {
+    const card = document.querySelector(`.product-card[data-id="${id}"]`);
+
+    if(card) card.remove();
+  })
 </script>

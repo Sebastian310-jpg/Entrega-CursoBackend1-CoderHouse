@@ -53,16 +53,5 @@
     "status": true,
     "category": "Accesorios",
     "thumbnail": "/img/botella-deportiva.jpg"
-  },
-  {
-    "id": "f9431646-03fd-43ce-9a57-064c8108141b",
-    "title": "Pelota de Futbol",
-    "description": "Pelota de cuero.",
-    "code": "PF0A",
-    "price": 11000,
-    "stock": 20,
-    "status": true,
-    "category": "Deportes",
-    "thumbnail": "/img/1759524511476-pelota-futbol.jpg"
   }
 ]

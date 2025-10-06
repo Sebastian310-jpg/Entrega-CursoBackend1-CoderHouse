@@ -38,10 +38,9 @@ viewsRouter.post("/realtimeproducts", uploader.single("thumbnail"), async (req, 
     const newProduct = { title, description, code, price, stock, status, category, thumbnail };
     await productManager.addProduct(newProduct);
 
-    req.app.get("io").emit("product-added", newProduct);
+    req.app.get("io").emit("productAdded", newProduct);
 
     res.redirect("/realtimeproducts");
-    
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
