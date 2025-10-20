@@ -1,46 +1,33 @@
 import express from 'express';
-import ProductManager from '../manager/productManager.js';
-import uploader from '../utils/uploader.js';
+import Product from '../models/products.model.js';
 
 const viewsRouter = express.Router();
 
-const productManager = new ProductManager("./src/data/products.json");
-
 viewsRouter.get("/", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
+    const { limit = 10, page = 1, category, status, sort } = req.query;
 
-    res.render("home", { products });
+    const filter = {};
+    if (category) filter.category = category;
+    if (status) filter.status = status === "true";
+
+    const sortOptions = {};
+    if (sort === "asc") sortOptions.price = 1;
+    if (sort === "desc") sortOptions.price = -1;
+
+    const data = await Product.paginate(filter, { limit, page, sort: sortOptions, lean: true });
+
+    const products = data.docs;
+    delete data.docs;
+
+    const links = [];
+
+    for(let i = 1; i <= data.totalPages; i++){
+      links.push({ page: i, link: `?limit=${limit}&page=${i}` }); 
+    }
+
+    res.render("home", { products, links });
     
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-})
-
-viewsRouter.get("/realtimeproducts", async (req, res) => {
-  try {
-    const products = await productManager.getProducts();
-
-    res.render('realTimeProducts', { products });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-})
-
-viewsRouter.post("/realtimeproducts", uploader.single("thumbnail"), async (req, res) => {
-  try {
-    const { title, description, code, category } = req.body;
-    const price = parseInt(req.body.price);
-    const stock = parseInt(req.body.stock);
-    const thumbnail = `/img/${req.file.filename}`;
-    const status = true;
-
-    const newProduct = { title, description, code, price, stock, status, category, thumbnail };
-    await productManager.addProduct(newProduct);
-
-    req.app.get("io").emit("productAdded", newProduct);
-
-    res.redirect("/realtimeproducts");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

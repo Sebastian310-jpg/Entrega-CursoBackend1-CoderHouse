@@ -1,20 +1,24 @@
 import express from 'express';
-import http from 'http';
 import { engine } from 'express-handlebars';
-import { Server } from 'socket.io';
+import dotenv from 'dotenv';
+
+import connectMongoDb from './config/db.js';
 
 import viewsRouter from './routes/views.router.js';
 import productsRouter from './routes/products.router.js';
 import cartsRouter from './routes/carts.router.js';
-import ProductManager from './manager/productManager.js';
+
+// Inicializar variables de entorno
+dotenv.config();
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
-const productManager = new ProductManager("./src/data/products.json")
+const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.static("public"));
+
+// Conectar con MongoDB
+connectMongoDb();
 
 // Handlebars config
 app.engine('handlebars', engine());
@@ -26,25 +30,6 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 
-// Webstocks
-app.set("io", io);
-
-io.on('connection', (socket) => {
-  console.log('Nuevo cliente conectado.');
-
-  socket.on("deleteProduct", async (dataId) => {
-    try {
-      await productManager.deleteProductById(dataId);
-
-      io.emit("productDeleted", dataId);
-    } catch (error) {
-      console.log("Error al eliminar el producto: " + error.message); 
-    }
-  })
-});
-
-
-const PORT = 8080;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
