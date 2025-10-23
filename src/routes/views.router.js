@@ -29,7 +29,20 @@ viewsRouter.get("/", async (req, res) => {
     res.render("home", { products, links });
     
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: "error", message: "Error al obtener los productos: " + error.message });
+  }
+})
+
+viewsRouter.get("/products/:pid", async (req, res) => {
+  try {
+    const { pid: productId } = req.params;
+
+    const product = await Product.findById(productId).lean(); 
+    if(!product) return res.status(404).json({ success: 'error', message: 'Producto no encontrado'}); 
+
+    res.render("productDetail", { product });
+  } catch (error) {
+    res.status(500).json({ success: "error", message: "Error al obtener los productos: " + error.message });
   }
 })
 
